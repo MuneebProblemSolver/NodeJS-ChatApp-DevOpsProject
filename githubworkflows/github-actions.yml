@@ -1,0 +1,33 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker Image
+      run: |
+        docker build -t username/chat-app:latest .
+        echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        docker push username/chat-app:latest
+
+    - name: Deploy to EC2 Kubernetes
+      env:
+        HOST: ${{ secrets.EC2_HOST }}
+        USERNAME: ${{ secrets.EC2_USERNAME }}
+        KEY: ${{ secrets.EC2_KEY }}
+      run: |
+        echo "${KEY}" > ssh_key.pem
+        chmod 600 ssh_key.pem
+        ssh -o StrictHostKeyChecking=no -i ssh_key.pem ${USERNAME}@${HOST} <<EOF
+        kubectl apply -f deployment.yml
+        kubectl apply -f service.yml
+        EOF
