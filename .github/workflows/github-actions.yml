@@ -15,7 +15,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t username/chat-app:latest .
+        docker build -t muneebdocker/chat-app:latest .
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
         docker push username/chat-app:latest
 
