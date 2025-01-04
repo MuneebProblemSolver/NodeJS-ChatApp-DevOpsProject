@@ -23,7 +23,7 @@ jobs:
    
   
     - name: Deploy on Mac (Optional)
-      if: github.event_name == 'push' && runner.os == 'macOS'
+   
       run: |
             docker run -d --name chat-app -p 3000:3000 muneebdocker/chat-app:${{ github.sha }}
     
