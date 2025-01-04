@@ -19,32 +19,8 @@ jobs:
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
         docker push muneebdocker/chat-app:latest
 
-    # - name: Deploy to EC2 Kubernetes
-    #   env:
-        # same as per below 
-    #   run: |
-    #     echo "${KEY}" > ssh_key.pem
-    #     chmod 600 ssh_key.pem
-    #     ssh -o StrictHostKeyChecking=no -i ssh_key.pem ${USERNAME}@${HOST} <<EOF
-    #     kubectl apply -f deployment.yml
-    #     kubectl apply -f service.yml
-    #     EOF
-
-    - name: Deploy on EC2
-      if: github.event_name == 'push'
-      env:
-          HOST: ${{ secrets.EC2_HOST }}
-          USERNAME: ${{ secrets.EC2_USERNAME }}
-          KEY: ${{ secrets.EC2_KEY }}
-      run: |
-          echo "${KEY}" > ssh_key.pem
-          chmod 600 ssh_key.pem
-          ssh -o StrictHostKeyChecking=no -i ssh_key.pem ${USERNAME}@${HOST} <<EOF
-          docker pull muneebdocker/chat-app:${{ github.sha }}
-          docker stop chat-app || true
-          docker rm chat-app || true
-          docker run -d --name chat-app -p 3000:3000 muneebdocker/chat-app:${{ github.sha }}
-          EOF
+    
+   
   
     - name: Deploy on Mac (Optional)
       if: github.event_name == 'push' && runner.os == 'macOS'
