@@ -13,17 +13,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Build Docker Image
+    - name: Build and Push Docker Image
       run: |
         docker build -t muneebdocker/chat-app:latest .
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
         docker push muneebdocker/chat-app:latest
 
-    
-   
-  
-    - name: Deploy on Mac (Optional)
-   
+    - name: List Docker Images
+      run: docker images
+
+    - name: Deploy Application
       run: |
-            docker run -d --name chat-app -p 3000:3000 muneebdocker/chat-app:${{ github.sha }}
-    
+        docker run -d --name chat-app -p 3000:3000 muneebdocker/chat-app:latest
