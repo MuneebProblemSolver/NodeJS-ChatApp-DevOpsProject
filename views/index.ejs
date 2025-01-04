@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Messaging</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Real-Time Messaging App by The Logic Lounge</h1>
+        <div class="technologies">
+            <img src="https://cdn-icons-png.flaticon.com/128/15380/15380914.png" alt="Node.js" title="Node.js">
+            <img src="https://cdn-icons-png.flaticon.com/128/91/91397.png" alt="Express.js" title="Express.js">
+            <img src="data:image/png;base64,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" alt="Socket.io" title="Socket.io">
+            <img src="https://cdn-icons-png.flaticon.com/128/9559/9559438.png" alt="EJS" title="EJS">
+            <img src="https://cdn-icons-png.flaticon.com/128/5969/5969028.png" alt="Docker" title="Docker">
+        </div>
+    </header>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <input type="text" id="message" placeholder="Type your message...">
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const sendBtn = document.getElementById('sendBtn');
+        const messageInput = document.getElementById('message');
+        const messagesContainer = document.getElementById('messages');
+
+        // Receive messages from server
+        socket.on('message', (data) => {
+            const { user, message } = data;
+            const messageBubble = document.createElement('div');
+            messageBubble.classList.add('message-bubble');
+            messageBubble.classList.add(user === socket.id ? 'sent' : 'received');
+            messageBubble.textContent = message;
+            messagesContainer.appendChild(messageBubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+
+        // Send message to server
+        sendBtn.addEventListener('click', () => {
+            const message = messageInput.value;
+            if (message) {
+                socket.emit('user_message', message);
+                messageInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
